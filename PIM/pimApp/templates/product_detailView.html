@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="column-4">
+            {{ product_detail.sku }}
+        </div>
+        <div class="column-4">
+            {{ shipment_detailview.shipment_description }}
+        </div>
+        <div class="column-4">
+            {{ shipment_detailview.shipment_status }}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
