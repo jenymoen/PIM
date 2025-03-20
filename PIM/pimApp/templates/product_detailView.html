@@ -8,13 +8,23 @@
             {{ product_detail.sku }}
         </div>
         <div class="column-4">
-            {{ shipment_detailview.shipment_description }}
+            {{ product_detail.product_name }}
         </div>
         <div class="column-4">
             {{ shipment_detailview.shipment_status }}
         </div>
     </div>
 </div>
+
+<form action="{% url 'push_product_to_shopify' product.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Push to Shopify</button>
+</form>
+
+<div>
+
+</div>
+
 
 
 

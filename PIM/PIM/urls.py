@@ -23,4 +23,5 @@ urlpatterns = [
     path('product_list/', views.product_list, name='product_list'),
     path('', views.index, name='index'),
     path('product/<str:pk>/', views.product_detail, name='product_detail'),
+    path('product/<str:pk>/push_to_shopify/', views.push_product_to_shopify, name='push_product_to_shopify'),
 ]
