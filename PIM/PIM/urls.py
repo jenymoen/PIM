@@ -24,4 +24,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('product/<str:pk>/', views.product_detail, name='product_detail'),
     path('product/<str:pk>/push_to_shopify/', views.push_product_to_shopify, name='push_product_to_shopify'),
+    path('settings/', views.update_shopify_settings, name='update_shopify_settings'),
 ]

@@ -1,6 +1,16 @@
 from django.db import models
 import requests, json
 
+
+
+
+class ShopifySettings(models.Model):
+    access_token = models.CharField(max_length=255, blank=False, null=False)
+
+    def __str__(self):
+        return "Shopify Settings"
+
+
 class Product_Category(models.Model):
     category_name = models.CharField(max_length=20 ,blank=False, null=False)
     category_description = models.CharField(max_length=20 ,blank=False, null=False)
@@ -8,7 +18,22 @@ class Product_Category(models.Model):
     def __str__(self):
         return self.category_name
 
+class Suppliers(models.Model):
+    supplier_name = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_description = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_image = models.ImageField()
+    supplier_address = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_phone = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_email = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_website = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_contact_person = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_contact_phone = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_contact_email = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_contact_position = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_notes = models.CharField(max_length=20 ,blank=False, null=False)
 
+    def __str__(self):
+        return self.supplier_name
 
 class Collections(models.Model):
     collection_name = models.CharField(max_length=20 ,blank=False, null=False)
@@ -39,10 +64,16 @@ class Product(models.Model):
     #status_enriched = 
 
     def push_to_shopify(self):
+
+        shopify_settings = ShopifySettings.objects.first()
+        if not shopify_settings or not shopify_settings.access_token:
+            print("Shopify access token is not set")
+            return
+
         url = "https://santiccycling.myshopify.com/admin/api/2024-07/products.json"
         headers = {
             'Content-Type': 'application/json',
-            'X-Shopify-Access-Token': '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'
+            'X-Shopify-Access-Token': shopify_settings.access_token #'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'
         }
         data = {
             "product": {
@@ -61,8 +92,9 @@ class Product(models.Model):
                         "weight": self.weight,
                         "weight_unit": "g",
                         "inventory_management": "shopify",
-                        "inventory_quantity": 1,
-                        "price": 10.00
+                        "inventory_quantity": 0,
+                        "price": self.unit_price,
+                        "barcode": self.barcode
                     }
                 ]
 
@@ -71,9 +103,7 @@ class Product(models.Model):
             }
         }
 
-
-
-
+        
         response = requests.post(url, headers=headers, json=data)
         if response.status_code == 201:
             print("Product pushed to Shopify successfully")

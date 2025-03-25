@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product
+from .models import Product, ShopifySettings
+from .forms import ShopifySettingsForm
 import requests
 
 def index(request):
@@ -33,3 +34,14 @@ def push_product_to_shopify(requests, pk):
     product.push_to_shopify()
     return redirect('product_detail', pk=pk)
 # Compare this snippet from PIM/pimApp/views.py:
+
+def update_shopify_settings(request):
+    shopify_settings, created = ShopifySettings.objects.get_or_create(pk=1)
+    if request.method == 'POST':
+        form = ShopifySettingsForm(request.POST, instance=shopify_settings)
+        if form.is_valid():
+            form.save()
+            return redirect('update_shopify_settings')
+    else:
+        form = ShopifySettingsForm(instance=shopify_settings)
+    return render(request, 'settings.html', {'form': form})	
