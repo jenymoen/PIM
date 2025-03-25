@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from pimApp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,9 @@ urlpatterns = [
     path('product/<str:pk>/', views.product_detail, name='product_detail'),
     path('product/<str:pk>/push_to_shopify/', views.push_product_to_shopify, name='push_product_to_shopify'),
     path('settings/', views.update_shopify_settings, name='update_shopify_settings'),
+    path('new_product/', views.new_product, name='new_product'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

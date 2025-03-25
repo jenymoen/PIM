@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<!-- Custom Navbar -->
+{% include 'product_detail_navbar.html' %}
+
+
+<!-- Page Content -->
 <center><h1>Product Detail {{ product_detail.product_name }}</h1></center>
 
 <div class="container-max-width">
@@ -20,7 +25,7 @@
 
         <div class="col text-center">
             <div class="card card-body">
-                Product Image: <img src="{{ product_detail.product_image.url }}" alt="">
+                Product Image: <img src="{{ product_detail.product_image.url }}" alt="" width="200" height="200">
 
             </div>
         </div>
@@ -29,13 +34,13 @@
     </div>
 </div>
 
-<form action="{% url 'push_product_to_shopify' product.pk %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Push to Shopify</button>
-</form>
+
 
 <div>
-
+    <form action="{% url 'push_product_to_shopify' product.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Push to Shopify</button>
+    </form>
 </div>
 
 

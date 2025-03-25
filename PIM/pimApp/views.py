@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, ShopifySettings
-from .forms import ShopifySettingsForm
+from .forms import ShopifySettingsForm, ProductForm
 import requests
 
 def index(request):
@@ -44,4 +44,14 @@ def update_shopify_settings(request):
             return redirect('update_shopify_settings')
     else:
         form = ShopifySettingsForm(instance=shopify_settings)
-    return render(request, 'settings.html', {'form': form})	
+    return render(request, 'settings.html', {'form': form})
+
+def new_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm()
+    return render(request, 'new_product.html', {'form': form})
