@@ -3,6 +3,17 @@ from .models import Product, ShopifySettings
 from .forms import ShopifySettingsForm, ProductForm
 import requests
 
+
+def dashboard(request):
+    products = Product.objects.all()
+
+    context = {
+        'products': products
+    }
+
+    return render(request, 'dashboard.html', context)
+
+
 def index(request):
     return render(request, 'index.html')
 
