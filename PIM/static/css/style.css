@@ -1,3 +1,8 @@
 h1 {
     font-size: 40px; /* Adjust the size as needed */
 }
+
+body {
+    background-color: lightgray;
+    
+}

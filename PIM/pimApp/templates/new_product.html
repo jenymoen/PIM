@@ -4,6 +4,11 @@
     <h2>New Product</h2>
     <form method="post">
         {% csrf_token %}
+
+        <div class="form-field">
+            {{ form.product_name.label_tag }}
+        </div>
+
         {{ form.as_p }}
         <button type="submit">Register</button>
     </form>
