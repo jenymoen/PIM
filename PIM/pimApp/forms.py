@@ -11,3 +11,14 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+
+    def __init__ (self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # add CSS classes to all fields
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+        # special styling for specific fields
+        self.fields['description'].widget.attrs.update({'rows': 3})
+        self.fields['product_image'].widget.attrs.update({'class': 'form-control-file'})
+        self.fields['barcode'].widget.attrs.update({'placeholder': 'Enter numeric barcode'})
