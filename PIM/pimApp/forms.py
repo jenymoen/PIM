@@ -21,4 +21,5 @@ class ProductForm(forms.ModelForm):
         # special styling for specific fields
         self.fields['description'].widget.attrs.update({'rows': 3})
         self.fields['product_image'].widget.attrs.update({'class': 'form-control-file'})
+        self.fields['product_image'].required = False # Make the field optional
         self.fields['barcode'].widget.attrs.update({'placeholder': 'Enter numeric barcode'})

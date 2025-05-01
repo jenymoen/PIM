@@ -9,28 +9,56 @@
 <center><h1>Product Detail {{ product_detail.product_name }}</h1></center>
 
 <div class="container-max-width">
-    <div class="row">
+    <div class="row d-flex align-items-stretch">
         <div class="col text-center">
-            <div class="card card-body">
-                SKU:                {{ product_detail.sku }}<br>
-                Product Name:       {{ product_detail.product_name }}<br>
-                Barcode:            {{ product_detail.barcode }}<br>
-                Description:        {{ product_detail.description }}<br>
-                Unit Price LV:      {{ product_detail.unit_price }}<br>
-                Product Type:       {{ product_detail.product_type }}<br>
+            <div class="card h-100">    
+                <div class="card card-body text-start">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th scope="row">SKU</th>
+                                <td>{{ product_detail.sku }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="width: 1%; white-space: nowrap;">Product Name</th>
+                                <td>{{ product_detail.product_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Barcode</th>
+                                <td>{{ product_detail.barcode }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Description</th>
+                                <td>{{ product_detail.description }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" style="width: 1%; white-space: nowrap;">Unit Price LV</th>
+                                <td>{{ product_detail.unit_price }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Product Type</th>
+                                <td>{{ product_detail.product_type }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <div class="col text-center">
-            <div class="card card-body">
-                Product Image: <img src="{{ product_detail.product_image.url }}" alt="" width="200" height="200">
-
+            <div>    
+                <div class="card card-body">
+                    <center>Product Image:</center> 
+                    <center><img src="{{ product_detail.product_image.url }}" alt="" width="300" height="300"></center>
+                </div>
             </div>
         </div>
         
 
     </div>
 </div>
+
+
 
 
 

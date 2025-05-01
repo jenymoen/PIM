@@ -11,7 +11,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'new_product' %}">
-                    <img src="{% static 'admin/img/icon-addlink.svg' %}" alt="New Product" width="20" height="20">
+                    <img src="{% static 'admin/img/icon-addlink.svg' %}" alt="New Product" width="15" height="15">
                     New Product
                 </a>
             </li>
@@ -19,7 +19,12 @@
                 <a class="nav-link" href="{% url 'product_list' %}">Product List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'update_shopify_settings' %}">Settings</a>
+                <a class="nav-link" href="#" onclick="document.getElementById('push-to-shopify-form').submit();">
+                    Push to Shopify
+                </a>
+                <form id="push-to-shopify-form" action="{% url 'push_product_to_shopify' product.pk %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
             </li>
         </ul>
     </div>
