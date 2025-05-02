@@ -48,8 +48,8 @@ class Collections(models.Model):
 class Product(models.Model):
     sku = models.CharField(max_length=20 ,blank=False, null=False)
     product_name = models.CharField(max_length=50 ,blank=False, null=False)
-    description = models.CharField(max_length=100 ,blank=False, null=False)
-    product_image = models.ImageField()
+    description = models.CharField(max_length=200 ,blank=False, null=False)
+    product_image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     manufacturer = models.CharField(max_length=20 ,blank=False, null=False)
     weight = models.IntegerField(blank=True, null=False)
     length = models.IntegerField(blank=True, null=True)
@@ -64,7 +64,6 @@ class Product(models.Model):
     #status_enriched = 
 
     def push_to_shopify(self):
-
         shopify_settings = ShopifySettings.objects.first()
         if not shopify_settings or not shopify_settings.access_token:
             print("Shopify access token is not set")
@@ -75,6 +74,16 @@ class Product(models.Model):
             'Content-Type': 'application/json',
             'X-Shopify-Access-Token': shopify_settings.access_token #'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'
         }
+
+        # Check if the product has an image
+        image_data = []
+        if self.product_image:
+            # use the URL of the product image
+            image_data.append({
+                "src": self.product_image.url # ensure this URL is accessible
+            })
+
+        # Prepare the payload
         data = {
             "product": {
                 "title": self.product_name,
@@ -103,7 +112,7 @@ class Product(models.Model):
             }
         }
 
-        
+        # send the request to Shopify
         response = requests.post(url, headers=headers, json=data)
         if response.status_code == 201:
             print("Product pushed to Shopify successfully")

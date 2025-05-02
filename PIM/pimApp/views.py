@@ -59,7 +59,7 @@ def update_shopify_settings(request):
 
 def new_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('product_list')
