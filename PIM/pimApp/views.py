@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ShopifySettings
+from .models import Product, ShopifySettings, Suppliers
 from .forms import ShopifySettingsForm, ProductForm
 import requests
 
@@ -66,3 +66,11 @@ def new_product(request):
     else:
         form = ProductForm()
     return render(request, 'new_product.html', {'form': form})
+
+def supplier_list(request):
+    suppliers = Suppliers.objects.all()
+    context = {
+        'suppliers': suppliers
+    }
+
+    return render(request, 'suppliers_list.html', context)

@@ -19,10 +19,11 @@ class Product_Category(models.Model):
         return self.category_name
 
 class Suppliers(models.Model):
+    supplier_number = models.IntegerField(blank=True, null=False, default=0)
     supplier_name = models.CharField(max_length=20 ,blank=False, null=False)
-    supplier_description = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_description = models.CharField(max_length=20 ,blank=True, null=True)
     supplier_image = models.ImageField()
-    supplier_address = models.CharField(max_length=20 ,blank=False, null=False)
+    supplier_address = models.CharField(max_length=20 ,blank=True, null=True)
     supplier_phone = models.CharField(max_length=20 ,blank=False, null=False)
     supplier_email = models.CharField(max_length=20 ,blank=False, null=False)
     supplier_website = models.CharField(max_length=20 ,blank=False, null=False)

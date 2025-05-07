@@ -28,6 +28,7 @@ urlpatterns = [
     path('product/<str:pk>/push_to_shopify/', views.push_product_to_shopify, name='push_product_to_shopify'),
     path('settings/', views.update_shopify_settings, name='update_shopify_settings'),
     path('new_product/', views.new_product, name='new_product'),
+    path('suppliers/', views.supplier_list, name='supplier_list'),
 ]
 
 if settings.DEBUG:
